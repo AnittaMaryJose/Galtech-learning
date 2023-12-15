@@ -4,7 +4,7 @@ from . models import courses
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from . models import Lessons,Video
+from . models import Lessons,Video,Reviews
 from django.shortcuts import render,get_object_or_404
  
 
@@ -16,15 +16,40 @@ def cart(request):
 
 
 
+
+
 def coursedetails(request, slug):
     course = get_object_or_404(courses, slug=slug)
-    for review in course.reviews_set.all():
-        print(review.course)  
-    for less in course.lessons_set.all():
-        print(less.lesson_title)
-        for video in less.video_set.all():
-            print(video.video_title)
+    if request.method == 'POST' and 'submit' in request.POST:
+        current_user = request.user
+        rating = request.POST.get("rating")  
+        review_text = request.POST.get("comment")  
+        review = Reviews.objects.create(user=current_user,course=course,rating=rating,review_text=review_text)
+        print("======================================")
+        print(review)
+       
+    
+    # for less in course.lessons_set.all():
+    #     print(less.lesson_title)
+    #     for video in less.video_set.all():
+    #         print(video.video_title)
     return render(request, 'course-details.html', {'course': course})
+
+
+
+
+
+
+
+# def coursedetails(request, slug):
+#     course = get_object_or_404(courses, slug=slug)
+#     for review in course.reviews_set.all():
+#         print(review.course)  
+#     for less in course.lessons_set.all():
+#         print(less.lesson_title)
+#         for video in less.video_set.all():
+#             print(video.video_title)
+#     return render(request, 'course-details.html', {'course': course})
 
 # def coursedetails(request,slug):
 #     course = get_object_or_404(courses, slug=slug)

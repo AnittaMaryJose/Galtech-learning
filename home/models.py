@@ -89,7 +89,7 @@ class Reviews(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
     review_text = models.TextField()
-    review_date = models.DateField()
+    review_date = models.DateField(auto_now=True)
 
     def __str__(self):
         return f"{self.user.username}'s review for {self.course}"
