@@ -11,6 +11,8 @@ def unique_name(instance, filename):
     filename = f'{uuid.uuid4()}.{ext}'
     return os.path.join('profile_pics', filename)
 
+    
+    
               
     
 class UserProfile(models.Model):
@@ -82,6 +84,8 @@ class Video(models.Model):
 
     def __str__(self):
         return self.video_title
+
+
 
 class Reviews(models.Model):
     id = models.AutoField(primary_key=True)
