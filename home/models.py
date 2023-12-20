@@ -95,5 +95,6 @@ class Reviews(models.Model):
     review_text = models.TextField()
     review_date = models.DateField(auto_now=True)
 
+
     def __str__(self):
         return f"{self.user.username}'s review for {self.course}"
